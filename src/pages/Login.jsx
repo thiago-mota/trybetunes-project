@@ -16,9 +16,11 @@ class Login extends React.Component {
   }
 
   handleChange = ({ target }) => {
-    this.setState({
-      name: target.value },
-    () => this.setState({ enterBtnDisabled: this.btnValidation() }));
+    const minNameLength = 3;
+    this.setState({ name: target.value });
+    return target.value.length >= minNameLength
+      ? this.setState({ enterBtnDisabled: false })
+      : this.setState({ enterBtnDisabled: true });
   }
 
   handleClick = async () => {
@@ -31,13 +33,6 @@ class Login extends React.Component {
       isLoading: false,
       redirect: true,
     });
-  }
-
-  btnValidation = () => {
-    const { name } = this.state;
-    const THREE = 3;
-    if (name.length >= THREE) return false;
-    return true;
   }
 
   render() {
